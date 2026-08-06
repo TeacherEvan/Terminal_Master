@@ -1,0 +1,6 @@
+# Terminal_Master dependencies
+# Core
+Pillow>=10.0.0
+pytesseract>=0.3.10
+# System tools (install via package manager, not pip):
+#   grim, tesseract, ydotool, ydotoold
