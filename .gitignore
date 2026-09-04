@@ -6,3 +6,4 @@ venv/
 *.png
 *.tsv
 screenshots/
+docs/.scratch-audit/
