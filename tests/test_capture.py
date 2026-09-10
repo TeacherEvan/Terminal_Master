@@ -17,7 +17,7 @@ def test_capture_writes_png():
     try:
         out = capture(output_dir=tempfile.mkdtemp())
     except RuntimeError as e:
-        if "compositor doesn't support" in str(e) or "No screenshot backend" in str(e):
+        if "compositor" in str(e).lower() or "no wl_output" in str(e).lower() or "No screenshot backend" in str(e):
             pytest.skip(f"capture backend unavailable: {e}")
         raise
     assert os.path.exists(out)

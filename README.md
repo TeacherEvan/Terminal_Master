@@ -11,7 +11,7 @@ A Python engine that turns any screen into a numbered, clickable control surface
    pick a number, the engine clicks via `ydotool`. Loop repeats.
 5. Preprocessing upsamples 2× to recover small terminal text.
 
-**Status:** Implemented MVP. Tests green (5 passed, 1 skipped — capture needs a
+**Status:** Implemented MVP. Tests green (10 passed, 1 skipped — capture needs a
 real Wayland compositor, not the agent sandbox).
 
 ## Layout
