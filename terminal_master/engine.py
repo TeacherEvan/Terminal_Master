@@ -6,6 +6,7 @@ Telegram code lives here — the agent is the bridge.
 """
 from __future__ import annotations
 
+import os
 import tempfile
 from pathlib import Path
 
@@ -28,7 +29,8 @@ def _preprocess(path: str) -> str:
         img = img.resize(
             (img.width * UPSCALE, img.height * UPSCALE), Image.Resampling.LANCZOS
         )
-    out = tempfile.mktemp(suffix=".png")
+    fd, out = tempfile.mkstemp(suffix=".png")
+    os.close(fd)
     img.save(out)
     return out
 
