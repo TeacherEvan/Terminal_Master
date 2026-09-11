@@ -4,7 +4,7 @@ from unittest import mock
 import pytest
 
 from terminal_master.detect import NumberedElement
-from terminal_master.input import SOCKET, click, press_key, type_text
+from terminal_master.input import click, press_key, type_text
 
 
 def _el() -> NumberedElement:

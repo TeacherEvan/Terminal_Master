@@ -13,7 +13,7 @@ from PIL import Image  # type: ignore
 
 from .capture import capture
 from .detect import NumberedElement, detect_buttons
-from .input import click, press_key, type_text
+from .input import click
 from .ocr import ocr_words
 
 # Supersample factor: render at higher resolution before OCR to recover small

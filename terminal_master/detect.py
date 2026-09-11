@@ -6,7 +6,7 @@ heuristic to drop non-interactive noise (window titles, body prose).
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from .ocr import WordBox
 
