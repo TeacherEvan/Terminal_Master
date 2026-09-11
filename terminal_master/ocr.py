@@ -79,6 +79,9 @@ def ocr_words(path: str) -> list[WordBox]:
     # Fallback: CLI TSV
     import tempfile
 
+    # TSV block_num for a single word (page=1, block=5, par=0, line=0, word=N)
+    WORD_BLOCK_NUM = 5
+
     out = tempfile.mktemp()
     res = subprocess.run(
         ["tesseract", path, out, "--psm", "6", "tsv"],
@@ -93,7 +96,7 @@ def ocr_words(path: str) -> list[WordBox]:
         next(f, None)  # header
         for line in f:
             cols = line.rstrip("\n").split("\t")
-            if len(cols) < 12 or cols[0] != "5":
+            if len(cols) < 12 or cols[0] != str(WORD_BLOCK_NUM):
                 continue
             try:
                 conf = float(cols[10])
