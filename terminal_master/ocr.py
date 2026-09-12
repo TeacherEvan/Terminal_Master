@@ -9,6 +9,7 @@ from __future__ import annotations
 import shutil
 import subprocess
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass
@@ -77,42 +78,48 @@ def ocr_words(path: str) -> list[WordBox]:
         pass
 
     # Fallback: CLI TSV
+    import os
     import tempfile
 
     # TSV block_num for a single word (page=1, block=5, par=0, line=0, word=N)
     WORD_BLOCK_NUM = 5
 
-    out = tempfile.mktemp()
-    res = subprocess.run(
-        ["tesseract", path, out, "--psm", "6", "tsv"],
-        capture_output=True,
-        text=True,
-    )
-    if res.returncode != 0:
-        raise RuntimeError(f"tesseract failed: {res.stderr.strip()}")
-    tsv = out + ".tsv"
-    boxes = []
-    with open(tsv) as f:
-        next(f, None)  # header
-        for line in f:
-            cols = line.rstrip("\n").split("\t")
-            if len(cols) < 12 or cols[0] != str(WORD_BLOCK_NUM):
-                continue
-            try:
-                conf = float(cols[10])
-            except ValueError:
-                continue
-            txt = cols[11].strip()
-            if not txt or conf < 0:
-                continue
-            boxes.append(
-                WordBox(
-                    text=txt,
-                    left=int(cols[6]),
-                    top=int(cols[7]),
-                    width=int(cols[8]),
-                    height=int(cols[9]),
-                    conf=conf,
+    fd, base = tempfile.mkstemp()
+    os.close(fd)
+    tsv_path = base + ".tsv"
+    try:
+        res = subprocess.run(
+            ["tesseract", path, base, "--psm", "6", "tsv"],
+            capture_output=True,
+            text=True,
+        )
+        if res.returncode != 0:
+            raise RuntimeError(f"tesseract failed: {res.stderr.strip()}")
+        boxes = []
+        with open(tsv_path) as f:
+            next(f, None)  # header
+            for line in f:
+                cols = line.rstrip("\n").split("\t")
+                if len(cols) < 12 or cols[0] != str(WORD_BLOCK_NUM):
+                    continue
+                try:
+                    conf = float(cols[10])
+                except ValueError:
+                    continue
+                txt = cols[11].strip()
+                if not txt or conf < 0:
+                    continue
+                boxes.append(
+                    WordBox(
+                        text=txt,
+                        left=int(cols[6]),
+                        top=int(cols[7]),
+                        width=int(cols[8]),
+                        height=int(cols[9]),
+                        conf=conf,
+                    )
                 )
-            )
-    return boxes
+        return boxes
+    finally:
+        Path(base).unlink(missing_ok=True)
+        Path(tsv_path).unlink(missing_ok=True)
