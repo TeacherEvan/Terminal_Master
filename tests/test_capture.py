@@ -1,10 +1,12 @@
 """Tests for capture.py."""
-import pytest
-from terminal_master.capture import capture
-from PIL import Image  # type: ignore
-import tempfile
 import os
 import shutil
+import tempfile
+
+import pytest
+from PIL import Image  # type: ignore
+
+from terminal_master.capture import capture
 
 
 @pytest.mark.skipif(

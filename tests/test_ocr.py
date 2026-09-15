@@ -1,8 +1,10 @@
 """Tests for ocr.py using a rendered fixture (no real screen needed)."""
-from terminal_master.ocr import ocr_words
-from PIL import Image, ImageDraw, ImageFont  # type: ignore
 import tempfile
 from pathlib import Path
+
+from PIL import Image, ImageDraw, ImageFont  # type: ignore
+
+from terminal_master.ocr import ocr_words
 
 
 def test_ocr_finds_text():
@@ -32,7 +34,7 @@ def test_ocr_empty_image():
 
 def test_tsv_fallback_parses_and_cleans_up(tmp_path, monkeypatch):
     """CLI fallback path: tesseract TSV parsed, temp file removed after return."""
-    import terminal_master.ocr as ocr
+    from terminal_master import ocr
 
     # Force the ImportError branch: block the pytesseract module so the
     # `import pytesseract` inside ocr_words raises ImportError.

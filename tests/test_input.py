@@ -46,9 +46,8 @@ def test_click_raises_on_failure():
     el = _el()
     with mock.patch("terminal_master.input.os.path.exists", return_value=True), mock.patch(
         "terminal_master.input.subprocess.run", return_value=_fake_run(returncode=1)
-    ):
-        with pytest.raises(RuntimeError):
-            click(el)
+    ), pytest.raises(RuntimeError):
+        click(el)
 
 
 def test_press_key_uses_prefix():

@@ -61,9 +61,8 @@ def test_act_calls_click_for_matching_number():
 
 def test_act_raises_for_unknown_number():
     el = _el(number=1)
-    with mock.patch("terminal_master.engine.click"):
-        with pytest.raises(ValueError, match="No option numbered 99"):
-            act(99, [el])
+    with mock.patch("terminal_master.engine.click"), pytest.raises(ValueError, match="No option numbered 99"):
+        act(99, [el])
 
 
 def test_session_loop_yields_then_re_captures():

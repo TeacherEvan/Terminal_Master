@@ -29,12 +29,9 @@ def capture(output_dir: str | None = None) -> str:
     else:
         raise RuntimeError("No screenshot backend found (need grim/scrot/import).")
 
-    res = subprocess.run(cmd, capture_output=True, text=True)
+    res = subprocess.run(cmd, check=False, capture_output=True, text=True)
     if res.returncode != 0 or not out_path.exists():
         raise RuntimeError(f"Capture failed: {res.stderr.strip() or 'no output file'}")
 
     return str(out_path)
 
-
-def capture_to_bytes(path: str) -> bytes:
-    return Path(path).read_bytes()

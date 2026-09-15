@@ -28,7 +28,7 @@ def click(element) -> bool:
         [*prefix, "click", "0xC0"],
     ]
     for c in cmds:
-        res = subprocess.run(c, capture_output=True, text=True)
+        res = subprocess.run(c, check=False, capture_output=True, text=True)
         if res.returncode != 0:
             raise RuntimeError(
                 f"ydotool failed: {' '.join(c)} -> {res.stderr.strip()}"
@@ -39,7 +39,7 @@ def click(element) -> bool:
 def press_key(keys: str) -> bool:
     """Type a key sequence, e.g. '24:1 24:0' or a single key name."""
     prefix = _ydotool_prefix()
-    res = subprocess.run([*prefix, "key", keys], capture_output=True, text=True)
+    res = subprocess.run([*prefix, "key", keys], check=False, capture_output=True, text=True)
     if res.returncode != 0:
         raise RuntimeError(f"ydotool key failed: {res.stderr.strip()}")
     return True
@@ -47,7 +47,7 @@ def press_key(keys: str) -> bool:
 
 def type_text(text: str) -> bool:
     prefix = _ydotool_prefix()
-    res = subprocess.run([*prefix, "type", text], capture_output=True, text=True)
+    res = subprocess.run([*prefix, "type", text], check=False, capture_output=True, text=True)
     if res.returncode != 0:
         raise RuntimeError(f"ydotool type failed: {res.stderr.strip()}")
     return True

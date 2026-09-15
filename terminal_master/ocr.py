@@ -90,6 +90,7 @@ def ocr_words(path: str) -> list[WordBox]:
     try:
         res = subprocess.run(
             ["tesseract", path, base, "--psm", "6", "tsv"],
+            check=False,
             capture_output=True,
             text=True,
         )

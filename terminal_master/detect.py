@@ -39,9 +39,7 @@ def _looks_interactive(text: str) -> bool:
     if not any(ch.isalnum() for ch in text):
         return False
     # Drop very long strings (paragraphs / window captions)
-    if len(text) > 60:
-        return False
-    return True
+    return not len(text) > 60
 
 
 def detect_buttons(

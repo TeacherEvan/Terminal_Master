@@ -74,4 +74,4 @@ def session_loop(strict: bool = False):
         elements = run_once(strict=strict)  # re-capture for next turn
 
 
-__all__ = ["run_once", "act", "session_loop", "NumberedElement"]
+__all__ = ["NumberedElement", "act", "run_once", "session_loop"]

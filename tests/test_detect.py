@@ -1,6 +1,6 @@
 """Tests for detect.py — option-level clustering + top->bottom numbering."""
-from terminal_master.ocr import WordBox
 from terminal_master.detect import detect_buttons
+from terminal_master.ocr import WordBox
 
 
 def _box(text, top, left=10, width=80, height=20, conf=90.0):
