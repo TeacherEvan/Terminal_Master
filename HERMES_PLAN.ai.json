@@ -1,0 +1,32 @@
+{
+  "meta": {
+    "repo": "Terminal_Master",
+    "group": "Other",
+    "generated": "2026-08-15 18:55",
+    "branch": "master",
+    "commits": "2",
+    "lang": "Python",
+    "status": "proposed"
+  },
+  "items": [
+    {
+      "area": "Engine",
+      "action": "Mature capture/ocr/detect/input/engine modules (grim+tesseract+ydotool)."
+    },
+    {
+      "area": "Tests",
+      "action": "Fix the 1 skipped capture test (needs real Wayland compositor)."
+    }
+  ],
+  "instructions": "Terminal_Master (Other): proposed workstreams. Agent reads HERMES_PLAN.html ticks: approve(a)=implement, change(c)=revisit/clarify, skip=ignore. Compact form below.",
+  "compact": [
+    {
+      "a": "E",
+      "summary": "Mature capture/ocr/detect/input/engine modules (grim+tesseract+ydotool)."
+    },
+    {
+      "a": "T",
+      "summary": "Fix the 1 skipped capture test (needs real Wayland compositor)."
+    }
+  ]
+}
